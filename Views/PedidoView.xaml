@@ -14,17 +14,41 @@
                    FontSize="24" FontWeight="Bold" 
                    Foreground="#2C3E50" Margin="0,0,0,20"/>
 
-        <!-- Botões de Ação -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="➕ Novo Pedido" Command="{Binding NovoPedidoCommand}" 
-                    Style="{StaticResource ActionButtonStyle}"/>
-            <Button Content="💾 Salvar" Command="{Binding EditarCommand}" 
-                    Style="{StaticResource ActionButtonStyle}"/>
-            <Button Content="✅ Finalizar" Command="{Binding FinalizarCommand}" 
-                    Style="{StaticResource ActionButtonStyle}"/>
-            <Button Content="🗑️ Excluir" Command="{Binding ExcluirCommand}" 
-                    Style="{StaticResource ActionButtonStyle}"/>
-        </StackPanel>
+        <!-- Filtros e Botões de Ação -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Filtros -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="Filtrar por:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+                <ComboBox Width="150" SelectedItem="{Binding FiltroSelecionado}">
+                    <ComboBoxItem Content="Todos" IsSelected="True"/>
+                    <ComboBoxItem Content="Pendentes"/>
+                    <ComboBoxItem Content="Pagos"/>
+                    <ComboBoxItem Content="Enviados"/>
+                    <ComboBoxItem Content="Recebidos"/>
+                </ComboBox>
+            </StackPanel>
+            
+            <!-- Botões de Ação -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="➕ Novo Pedido" Command="{Binding NovoPedidoCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="💾 Salvar" Command="{Binding EditarCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="💰 Marcar Pago" Command="{Binding MarcarComoPagoCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="📦 Marcar Enviado" Command="{Binding MarcarComoEnviadoCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="✅ Marcar Recebido" Command="{Binding MarcarComoRecebidoCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="🗑️ Excluir" Command="{Binding ExcluirCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+            </StackPanel>
+        </Grid>
 
         <!-- Lista e Detalhes -->
         <Grid Grid.Row="2">
