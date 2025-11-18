@@ -134,7 +134,7 @@ namespace WpfApp.ViewModels
         {
             if (PedidoSelecionado != null && PedidoSelecionado.Status == StatusPedido.Pendente)
             {
-                _pedidoService.AlterarStatus(PedidoSelecionado.Id, StatusPedido.Concluido);
+                _pedidoService.AlterarStatus(PedidoSelecionado.Id, StatusPedido.Recebido);
                 MessageBox.Show("Pedido finalizado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
                 CarregarDados();
             }

@@ -78,6 +78,7 @@ namespace WpfApp.ViewModels
             var novoProduto = new Produto
             {
                 Nome = "Novo Produto",
+                Codigo = "",
                 Descricao = "",
                 Preco = 0,
                 QuantidadeEstoque = 0,
