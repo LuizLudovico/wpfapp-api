@@ -38,25 +38,38 @@ WpfApp/
 ## 🎨 Funcionalidades
 
 ### 👤 Cadastro de Pessoas
-- Adicionar, editar e excluir pessoas
-- Campos: Nome, CPF, Email, Telefone, Data de Nascimento, Endereço
-- Filtro de busca por nome
-- Validação de CPF duplicado
+- **Id**: Preenchimento automático (somente leitura)
+- **Nome**: Obrigatório | Campo de pesquisa
+- **CPF**: Obrigatório | Validar CPF | Campo de pesquisa
+- **Endereço**: Opcional
+- Filtros: Nome, CPF
+- Ações: Incluir, Editar, Salvar, Excluir
+- **Botão "Incluir Pedido"**: Abre a tela de pedidos vinculada à pessoa
 
 ### 📦 Cadastro de Produtos
-- Gerenciamento completo de produtos
-- Campos: Nome, Descrição, Preço, Quantidade em Estoque, Categoria, Código de Barras
-- Busca por nome ou categoria
-- Controle de estoque
-- Alertas de estoque baixo
+- **Id**: Preenchimento automático (somente leitura)
+- **Nome**: Obrigatório | Campo de pesquisa
+- **Código**: Obrigatório | Campo de pesquisa
+- **Valor**: Obrigatório | Pesquisa por faixa (valor inicial e final)
+- Grid com todos os registros
+- Ações: Incluir, Editar, Salvar, Excluir
 
 ### 📋 Gerenciamento de Pedidos
-- Criação e gerenciamento de pedidos
-- Vinculação com clientes e produtos
-- Cálculo automático de valores
-- Status do pedido (Pendente, Em Andamento, Concluído, Cancelado)
-- Controle automático de estoque ao criar/excluir pedidos
-- Itens do pedido com subtotais
+- **Id**: Preenchimento automático (somente leitura)
+- **Pessoa**: Obrigatório (relacionamento)
+- **Produtos**: Obrigatório (lista de produtos com quantidade)
+- **Valor Total**: Calculado automaticamente
+- **Data da Venda**: Preenchido automaticamente com a data atual
+- **Forma de Pagamento**: Obrigatório (Dinheiro, Cartão, Boleto)
+- **Status**: Preenchido automaticamente como "Pendente"; pode ser alterado para "Pago", "Enviado" ou "Recebido"
+- **Funcionalidades**:
+  - Seleção de Pessoa
+  - Adição de múltiplos produtos com quantidade
+  - Cálculo automático do valor total
+  - Seleção da forma de pagamento
+  - Botão Finalizar (salva e bloqueia edição)
+  - Grid de Pedidos da Pessoa com filtros adicionais
+  - Ações por linha: Marcar como Pago, Marcar como Enviado, Marcar como Recebido
 
 ## 🚀 Como Executar
 
@@ -92,9 +105,12 @@ O projeto segue o padrão **MVVM (Model-View-ViewModel)** para separação de re
 
 ### Models
 Classes de domínio que representam as entidades do sistema:
-- `Pessoa`: Dados de clientes
-- `Produto`: Catálogo de produtos
-- `Pedido`: Pedidos e itens
+- `Pessoa`: Dados de clientes (Id, Nome, CPF, Endereço)
+- `Produto`: Catálogo de produtos (Id, Nome, Codigo, Valor/Preco)
+- `Pedido`: Pedidos e itens (Id, Pessoa, Produtos, ValorTotal, DataVenda, FormaPagamento, Status)
+- `ItemPedido`: Itens do pedido (ProdutoId, Quantidade, PrecoUnitario, Subtotal)
+- `StatusPedido`: Enum (Pendente, Pago, Enviado, Recebido)
+- `FormaPagamento`: Enum (Dinheiro, Cartao, Boleto)
 
 ### Views
 Interfaces XAML para interação com o usuário:
@@ -163,12 +179,26 @@ public List<Produto> ObterProdutosComEstoqueBaixo(int quantidadeMinima = 10)
         .ToList();
 }
 
-// Total de vendas concluídas
+// Total de vendas recebidas
 public decimal ObterValorTotalVendas()
 {
     return _dataService.GetAll()
-        .Where(p => p.Status == StatusPedido.Concluido)
+        .Where(p => p.Status == StatusPedido.Recebido)
         .Sum(p => p.ValorTotal);
+}
+
+// Busca por faixa de valor
+public List<Produto> BuscarPorFaixaDeValor(decimal? valorInicial = null, decimal? valorFinal = null)
+{
+    var query = _dataService.GetAll().AsQueryable();
+    
+    if (valorInicial.HasValue)
+        query = query.Where(p => p.Preco >= valorInicial.Value);
+    
+    if (valorFinal.HasValue)
+        query = query.Where(p => p.Preco <= valorFinal.Value);
+    
+    return query.OrderBy(p => p.Preco).ToList();
 }
 ```
 
