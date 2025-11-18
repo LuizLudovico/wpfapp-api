@@ -16,27 +16,64 @@ namespace WpfApp.Views
             var textBox = sender as TextBox;
             if (textBox == null) return;
 
+            // Salva a posição do cursor
             int cursorPosition = textBox.SelectionStart;
+            string textoAnterior = textBox.Text;
+            
+            // Remove formatação
             string textoSemFormatacao = ValidationHelper.RemoverFormatacao(textBox.Text);
             
             // Limita a 11 dígitos
             if (textoSemFormatacao.Length > 11)
                 textoSemFormatacao = textoSemFormatacao.Substring(0, 11);
 
+            // Aplica formatação
             string textoFormatado = ValidationHelper.FormatarCPF(textoSemFormatacao);
             
+            // Só atualiza se mudou
             if (textBox.Text != textoFormatado)
             {
+                // Remove o handler temporariamente para evitar loop
+                textBox.TextChanged -= TxtCPF_TextChanged;
+                
                 textBox.Text = textoFormatado;
-                textBox.SelectionStart = System.Math.Min(cursorPosition + (textoFormatado.Length - textBox.Text.Length), textoFormatado.Length);
+                
+                // Ajusta cursor: se estava no final, vai pro final, senão mantém posição relativa
+                if (cursorPosition >= textoAnterior.Length)
+                {
+                    textBox.SelectionStart = textoFormatado.Length;
+                }
+                else
+                {
+                    // Calcula nova posição baseada no número de dígitos antes do cursor
+                    int digitosAntes = ValidationHelper.RemoverFormatacao(textoAnterior.Substring(0, cursorPosition)).Length;
+                    int novaPosicao = 0;
+                    int digitosContados = 0;
+                    
+                    for (int i = 0; i < textoFormatado.Length && digitosContados < digitosAntes; i++)
+                    {
+                        if (char.IsDigit(textoFormatado[i]))
+                            digitosContados++;
+                        novaPosicao = i + 1;
+                    }
+                    
+                    textBox.SelectionStart = System.Math.Min(novaPosicao, textoFormatado.Length);
+                }
+                
+                // Reativa o handler
+                textBox.TextChanged += TxtCPF_TextChanged;
             }
 
             // Validação visual
-            if (!string.IsNullOrWhiteSpace(textoSemFormatacao))
+            if (textoSemFormatacao.Length > 0)
             {
-                bool cpfValido = ValidationHelper.ValidarCPF(textoSemFormatacao);
-                textBox.Background = cpfValido ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.LightPink;
-                textBox.ToolTip = cpfValido ? "CPF válido" : "CPF inválido";
+                bool cpfValido = textoSemFormatacao.Length == 11 && ValidationHelper.ValidarCPF(textoSemFormatacao);
+                textBox.Background = cpfValido ? System.Windows.Media.Brushes.White : 
+                                    textoSemFormatacao.Length == 11 ? System.Windows.Media.Brushes.LightPink : 
+                                    System.Windows.Media.Brushes.White;
+                textBox.ToolTip = textoSemFormatacao.Length == 11 ? 
+                                 (cpfValido ? "CPF válido" : "CPF inválido") : 
+                                 "Digite o CPF completo";
             }
             else
             {

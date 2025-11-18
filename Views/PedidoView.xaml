@@ -92,8 +92,9 @@
                         <TextBlock Text="Forma de Pagamento:"/>
                         <ComboBox SelectedValue="{Binding FormaPagamento}" Margin="0,0,0,10">
                             <ComboBoxItem Content="Dinheiro" Tag="0"/>
-                            <ComboBoxItem Content="Cartão" Tag="1"/>
-                            <ComboBoxItem Content="Boleto" Tag="2"/>
+                            <ComboBoxItem Content="PIX" Tag="1"/>
+                            <ComboBoxItem Content="Cartão" Tag="2"/>
+                            <ComboBoxItem Content="Boleto" Tag="3"/>
                         </ComboBox>
 
                         <TextBlock Text="Status:"/>

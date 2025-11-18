@@ -51,6 +51,7 @@ namespace WpfApp.Models
     public enum FormaPagamento
     {
         Dinheiro,
+        PIX,
         Cartao,
         Boleto
     }
