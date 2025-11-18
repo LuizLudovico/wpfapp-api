@@ -73,15 +73,25 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="CPF:"/>
-                        <TextBox Text="{Binding CPF, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBlock Text="Exemplo: 001.001.001-00" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBox x:Name="TxtCPF" 
+                                 Text="{Binding CPF, UpdateSourceTrigger=PropertyChanged}" 
+                                 TextChanged="TxtCPF_TextChanged"
+                                 MaxLength="14"
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Email:"/>
-                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox x:Name="TxtEmail"
+                                 Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                                 LostFocus="TxtEmail_LostFocus"
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Telefone:"/>
-                        <TextBox Text="{Binding Telefone, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBlock Text="Exemplo: (18)99731-6821 ou (18)3341-2500" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBox x:Name="TxtTelefone"
+                                 Text="{Binding Telefone, UpdateSourceTrigger=PropertyChanged}" 
+                                 TextChanged="TxtTelefone_TextChanged"
+                                 MaxLength="15"
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Data de Nascimento:"/>
