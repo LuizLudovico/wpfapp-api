@@ -11,7 +11,9 @@ namespace WpfApp.ViewModels
     public class PessoaViewModel : ViewModelBase
     {
         private readonly PessoaService _pessoaService;
+        private readonly PedidoService _pedidoService;
         private ObservableCollection<Pessoa> _pessoas;
+        private ObservableCollection<Pedido> _pedidosDaPessoa;
         private Pessoa _pessoaSelecionada;
         private string _filtroNome;
 
@@ -24,7 +26,17 @@ namespace WpfApp.ViewModels
         public Pessoa PessoaSelecionada
         {
             get => _pessoaSelecionada;
-            set => SetProperty(ref _pessoaSelecionada, value);
+            set
+            {
+                SetProperty(ref _pessoaSelecionada, value);
+                CarregarPedidosDaPessoa();
+            }
+        }
+
+        public ObservableCollection<Pedido> PedidosDaPessoa
+        {
+            get => _pedidosDaPessoa;
+            set => SetProperty(ref _pedidosDaPessoa, value);
         }
 
         public string FiltroNome
@@ -41,16 +53,20 @@ namespace WpfApp.ViewModels
         public ICommand EditarCommand { get; }
         public ICommand ExcluirCommand { get; }
         public ICommand LimparCommand { get; }
+        public ICommand IncluirPedidoCommand { get; }
 
         public PessoaViewModel()
         {
             _pessoaService = new PessoaService();
+            _pedidoService = new PedidoService();
             
             AdicionarCommand = new RelayCommand(param => Adicionar());
             EditarCommand = new RelayCommand(param => Editar(), param => PessoaSelecionada != null);
             ExcluirCommand = new RelayCommand(param => Excluir(), param => PessoaSelecionada != null);
             LimparCommand = new RelayCommand(param => Limpar());
+            IncluirPedidoCommand = new RelayCommand(param => IncluirPedido(), param => PessoaSelecionada != null);
 
+            PedidosDaPessoa = new ObservableCollection<Pedido>();
             CarregarPessoas();
         }
 
@@ -122,6 +138,38 @@ namespace WpfApp.ViewModels
         {
             PessoaSelecionada = null;
             FiltroNome = string.Empty;
+        }
+
+        private void CarregarPedidosDaPessoa()
+        {
+            if (PessoaSelecionada != null)
+            {
+                var pedidos = _pedidoService.ObterPorCliente(PessoaSelecionada.Id);
+                PedidosDaPessoa = new ObservableCollection<Pedido>(pedidos);
+            }
+            else
+            {
+                PedidosDaPessoa = new ObservableCollection<Pedido>();
+            }
+        }
+
+        private void IncluirPedido()
+        {
+            if (PessoaSelecionada != null)
+            {
+                var novoPedido = new Pedido
+                {
+                    PessoaId = PessoaSelecionada.Id,
+                    NomeCliente = PessoaSelecionada.Nome,
+                    Status = StatusPedido.Pendente,
+                    FormaPagamento = FormaPagamento.Dinheiro
+                };
+
+                _pedidoService.Adicionar(novoPedido);
+                CarregarPedidosDaPessoa();
+                MessageBox.Show($"Pedido criado para {PessoaSelecionada.Nome}!\n\nAdicione produtos ao pedido na tela de Pedidos.", 
+                    "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
