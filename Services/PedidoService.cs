@@ -30,7 +30,7 @@ namespace WpfApp.Services
         {
             return _dataService.GetAll()
                 .Where(p => p.PessoaId == pessoaId)
-                .OrderByDescending(p => p.DataPedido)
+                .OrderByDescending(p => p.DataVenda)
                 .ToList();
         }
 
@@ -38,22 +38,22 @@ namespace WpfApp.Services
         {
             return _dataService.GetAll()
                 .Where(p => p.Status == status)
-                .OrderByDescending(p => p.DataPedido)
+                .OrderByDescending(p => p.DataVenda)
                 .ToList();
         }
 
         public List<Pedido> ObterPorPeriodo(DateTime dataInicio, DateTime dataFim)
         {
             return _dataService.GetAll()
-                .Where(p => p.DataPedido >= dataInicio && p.DataPedido <= dataFim)
-                .OrderByDescending(p => p.DataPedido)
+                .Where(p => p.DataVenda >= dataInicio && p.DataVenda <= dataFim)
+                .OrderByDescending(p => p.DataVenda)
                 .ToList();
         }
 
         public decimal ObterValorTotalVendas()
         {
             return _dataService.GetAll()
-                .Where(p => p.Status == StatusPedido.Concluido)
+                .Where(p => p.Status == StatusPedido.Recebido)
                 .Sum(p => p.ValorTotal);
         }
 

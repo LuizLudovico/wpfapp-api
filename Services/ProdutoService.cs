@@ -32,12 +32,33 @@ namespace WpfApp.Services
                 .ToList();
         }
 
+        public List<Produto> BuscarPorCodigo(string codigo)
+        {
+            return _dataService.GetAll()
+                .Where(p => p.Codigo.Contains(codigo, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(p => p.Codigo)
+                .ToList();
+        }
+
         public List<Produto> BuscarPorCategoria(string categoria)
         {
             return _dataService.GetAll()
                 .Where(p => p.Categoria.Equals(categoria, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(p => p.Nome)
                 .ToList();
+        }
+
+        public List<Produto> BuscarPorFaixaDeValor(decimal? valorInicial = null, decimal? valorFinal = null)
+        {
+            var query = _dataService.GetAll().AsQueryable();
+
+            if (valorInicial.HasValue)
+                query = query.Where(p => p.Preco >= valorInicial.Value);
+
+            if (valorFinal.HasValue)
+                query = query.Where(p => p.Preco <= valorFinal.Value);
+
+            return query.OrderBy(p => p.Preco).ToList();
         }
 
         public List<Produto> ObterProdutosComEstoqueBaixo(int quantidadeMinima = 10)
