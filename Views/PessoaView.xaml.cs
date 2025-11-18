@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApp.Services;
@@ -154,6 +155,54 @@ namespace WpfApp.Views
             }
         }
 
+        private void TxtDataNascimento_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            // Salva a posição do cursor
+            int cursorPosition = textBox.SelectionStart;
+            string textoAnterior = textBox.Text;
+
+            // Aplica máscara
+            string textoFormatado = MascaraHelper.FormatarData(textBox.Text);
+
+            // Só atualiza se mudou
+            if (textBox.Text != textoFormatado)
+            {
+                // Remove o handler temporariamente para evitar loop
+                textBox.TextChanged -= TxtDataNascimento_TextChanged;
+
+                textBox.Text = textoFormatado;
+
+                // Ajusta cursor
+                if (cursorPosition >= textoAnterior.Length)
+                {
+                    textBox.SelectionStart = textoFormatado.Length;
+                }
+                else
+                {
+                    // Remove formatação para contar dígitos
+                    string apenasDigitos = new string(Array.FindAll(textoAnterior.Substring(0, cursorPosition).ToCharArray(), c => char.IsDigit(c)));
+                    int digitosAntes = apenasDigitos.Length;
+                    int novaPosicao = 0;
+                    int digitosContados = 0;
+
+                    for (int i = 0; i < textoFormatado.Length && digitosContados < digitosAntes; i++)
+                    {
+                        if (char.IsDigit(textoFormatado[i]))
+                            digitosContados++;
+                        novaPosicao = i + 1;
+                    }
+
+                    textBox.SelectionStart = System.Math.Min(novaPosicao, textoFormatado.Length);
+                }
+
+                // Reativa o handler
+                textBox.TextChanged += TxtDataNascimento_TextChanged;
+            }
+        }
+
         private void TxtDataNascimento_LostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
@@ -161,7 +210,7 @@ namespace WpfApp.Views
 
             if (!string.IsNullOrWhiteSpace(textBox.Text))
             {
-                DateTime data;
+                System.DateTime data;
                 bool dataValida = DateTime.TryParseExact(textBox.Text, "dd/MM/yyyy", 
                     System.Globalization.CultureInfo.InvariantCulture, 
                     System.Globalization.DateTimeStyles.None, out data);
@@ -194,7 +243,7 @@ namespace WpfApp.Views
                 else
                 {
                     textBox.Background = System.Windows.Media.Brushes.LightPink;
-                    textBox.ToolTip = "Data inválida. Use o formato: DD/MM/AAAA (ex: 15/05/1990)";
+                    textBox.ToolTip = "Data inválida. Use o formato: DD/MM/AAAA (ex: 03/12/1985)";
                 }
             }
             else

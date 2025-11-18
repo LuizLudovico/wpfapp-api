@@ -81,10 +81,12 @@
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\JsonDataService.cs" />
+    <Compile Include="Services\MascaraHelper.cs" />
     <Compile Include="Services\PedidoService.cs" />
     <Compile Include="Services\PessoaService.cs" />
     <Compile Include="Services\ProdutoService.cs" />
     <Compile Include="Services\ValidationHelper.cs" />
+    <Compile Include="ViewModels\DateConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PedidoViewModel.cs" />
     <Compile Include="ViewModels\PessoaViewModel.cs" />
