@@ -85,8 +85,10 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Data de Nascimento:"/>
-                        <DatePicker SelectedDate="{Binding DataNascimento}" 
-                                    Margin="0,0,0,10"/>
+                        <TextBlock Text="Exemplo: 15/05/1990" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBox Text="{Binding DataNascimento, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=LostFocus}" 
+                                 MaxLength="10"
+                                 Margin="0,0,0,10"/>
 
                         <TextBlock Text="Endereço:"/>
                         <TextBox Text="{Binding Endereco, UpdateSourceTrigger=PropertyChanged}" 
