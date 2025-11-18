@@ -83,7 +83,9 @@
                                  AcceptsReturn="True" Margin="0,0,0,10"/>
 
                         <TextBlock Text="Preço:"/>
-                        <TextBox Text="{Binding Preco, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBlock Text="Exemplo: 12,50" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBox Text="{Binding Preco, StringFormat=N2, UpdateSourceTrigger=LostFocus, TargetNullValue=''}" 
+                                 ToolTip="Digite o valor com vírgula (ex: 12,50)"
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Quantidade em Estoque:"/>

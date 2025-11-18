@@ -66,12 +66,19 @@
                                  IsReadOnly="True" Margin="0,0,0,10"/>
 
                         <TextBlock Text="Forma de Pagamento:"/>
-                        <TextBox Text="{Binding FormaPagamento, Mode=OneWay}" 
-                                 IsReadOnly="True" Margin="0,0,0,10"/>
+                        <ComboBox SelectedValue="{Binding FormaPagamento}" Margin="0,0,0,10">
+                            <ComboBoxItem Content="Dinheiro" Tag="0"/>
+                            <ComboBoxItem Content="Cartão" Tag="1"/>
+                            <ComboBoxItem Content="Boleto" Tag="2"/>
+                        </ComboBox>
 
                         <TextBlock Text="Status:"/>
-                        <TextBox Text="{Binding Status, Mode=OneWay}" 
-                                 IsReadOnly="True" Margin="0,0,0,10"/>
+                        <ComboBox SelectedValue="{Binding Status}" Margin="0,0,0,10">
+                            <ComboBoxItem Content="Pendente" Tag="0"/>
+                            <ComboBoxItem Content="Pago" Tag="1"/>
+                            <ComboBoxItem Content="Enviado" Tag="2"/>
+                            <ComboBoxItem Content="Recebido" Tag="3"/>
+                        </ComboBox>
 
                         <TextBlock Text="Valor Total:"/>
                         <TextBox Text="{Binding ValorTotal, StringFormat=C, Mode=OneWay}" 
