@@ -98,7 +98,9 @@
 
                         <TextBlock Text="Data de Nascimento:"/>
                         <TextBlock Text="Exemplo: 15/05/1990" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
-                        <TextBox Text="{Binding DataNascimento, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=LostFocus}" 
+                        <TextBox x:Name="TxtDataNascimento"
+                                 Text="{Binding DataNascimento, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=LostFocus}" 
+                                 LostFocus="TxtDataNascimento_LostFocus"
                                  MaxLength="10"
                                  Margin="0,0,0,10"/>
 
