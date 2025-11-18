@@ -27,7 +27,7 @@ namespace WpfApp.Services
         public List<Pessoa> BuscarPorNome(string nome)
         {
             return _dataService.GetAll()
-                .Where(p => p.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.Nome.IndexOf(nome, StringComparison.OrdinalIgnoreCase) >= 0)
                 .OrderBy(p => p.Nome)
                 .ToList();
         }

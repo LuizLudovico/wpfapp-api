@@ -27,7 +27,7 @@ namespace WpfApp.Services
         public List<Produto> BuscarPorNome(string nome)
         {
             return _dataService.GetAll()
-                .Where(p => p.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.Nome.IndexOf(nome, StringComparison.OrdinalIgnoreCase) >= 0)
                 .OrderBy(p => p.Nome)
                 .ToList();
         }
@@ -35,7 +35,7 @@ namespace WpfApp.Services
         public List<Produto> BuscarPorCodigo(string codigo)
         {
             return _dataService.GetAll()
-                .Where(p => p.Codigo.Contains(codigo, StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.Codigo.IndexOf(codigo, StringComparison.OrdinalIgnoreCase) >= 0)
                 .OrderBy(p => p.Codigo)
                 .ToList();
         }
