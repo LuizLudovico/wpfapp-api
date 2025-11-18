@@ -52,7 +52,6 @@ namespace WpfApp.ViewModels
         public ICommand AdicionarCommand { get; }
         public ICommand EditarCommand { get; }
         public ICommand ExcluirCommand { get; }
-        public ICommand LimparCommand { get; }
         public ICommand IncluirPedidoCommand { get; }
 
         public PessoaViewModel()
@@ -63,7 +62,6 @@ namespace WpfApp.ViewModels
             AdicionarCommand = new RelayCommand(param => Adicionar());
             EditarCommand = new RelayCommand(param => Editar(), param => PessoaSelecionada != null);
             ExcluirCommand = new RelayCommand(param => Excluir(), param => PessoaSelecionada != null);
-            LimparCommand = new RelayCommand(param => Limpar());
             IncluirPedidoCommand = new RelayCommand(param => IncluirPedido(), param => PessoaSelecionada != null);
 
             PedidosDaPessoa = new ObservableCollection<Pedido>();
@@ -111,7 +109,11 @@ namespace WpfApp.ViewModels
             if (PessoaSelecionada != null)
             {
                 _pessoaService.Atualizar(PessoaSelecionada);
-                MessageBox.Show("Pessoa atualizada com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Pessoa salva com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                // Limpa o formulário após salvar
+                PessoaSelecionada = null;
+                CarregarPessoas();
             }
         }
 
@@ -132,12 +134,6 @@ namespace WpfApp.ViewModels
                     PessoaSelecionada = null;
                 }
             }
-        }
-
-        private void Limpar()
-        {
-            PessoaSelecionada = null;
-            FiltroNome = string.Empty;
         }
 
         private void CarregarPedidosDaPessoa()

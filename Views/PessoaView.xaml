@@ -40,8 +40,6 @@
                         Style="{StaticResource ActionButtonStyle}"/>
                 <Button Content="📋 Incluir Pedido" Command="{Binding IncluirPedidoCommand}" 
                         Style="{StaticResource ActionButtonStyle}"/>
-                <Button Content="🔄 Limpar" Command="{Binding LimparCommand}" 
-                        Style="{StaticResource ActionButtonStyle}"/>
             </StackPanel>
         </Grid>
 
