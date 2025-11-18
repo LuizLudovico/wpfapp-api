@@ -32,9 +32,11 @@
                      Margin="0,0,10,0"/>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Content="➕ Novo" Command="{Binding AdicionarCommand}" 
+                <Button Content="➕ Incluir" Command="{Binding AdicionarCommand}" 
                         Style="{StaticResource ActionButtonStyle}"/>
-                <Button Content="💾 Salvar" Command="{Binding EditarCommand}" 
+                <Button Content="✏️ Editar" Command="{Binding EditarCommand}" 
+                        Style="{StaticResource ActionButtonStyle}"/>
+                <Button Content="💾 Salvar" Command="{Binding SalvarCommand}" 
                         Style="{StaticResource ActionButtonStyle}"/>
                 <Button Content="🗑️ Excluir" Command="{Binding ExcluirCommand}" 
                         Style="{StaticResource ActionButtonStyle}"/>

@@ -51,6 +51,7 @@ namespace WpfApp.ViewModels
 
         public ICommand AdicionarCommand { get; }
         public ICommand EditarCommand { get; }
+        public ICommand SalvarCommand { get; }
         public ICommand ExcluirCommand { get; }
         public ICommand IncluirPedidoCommand { get; }
 
@@ -61,6 +62,7 @@ namespace WpfApp.ViewModels
             
             AdicionarCommand = new RelayCommand(param => Adicionar());
             EditarCommand = new RelayCommand(param => Editar(), param => PessoaSelecionada != null);
+            SalvarCommand = new RelayCommand(param => Salvar(), param => PessoaSelecionada != null);
             ExcluirCommand = new RelayCommand(param => Excluir(), param => PessoaSelecionada != null);
             IncluirPedidoCommand = new RelayCommand(param => IncluirPedido(), param => PessoaSelecionada != null);
 
@@ -105,6 +107,20 @@ namespace WpfApp.ViewModels
         }
 
         private void Editar()
+        {
+            // Botão Editar habilita a edição da pessoa selecionada
+            // No WPF com DataBinding, a edição já é automática ao selecionar
+            if (PessoaSelecionada != null)
+            {
+                MessageBox.Show(
+                    $"Editando: {PessoaSelecionada.Nome}\n\nModifique os campos desejados e clique em 💾 Salvar.",
+                    "Modo de Edição",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+
+        private void Salvar()
         {
             if (PessoaSelecionada != null)
             {
