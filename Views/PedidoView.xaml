@@ -42,7 +42,7 @@
                       Style="{StaticResource DataGridStyle}"
                       Margin="0,0,10,0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Data" Binding="{Binding DataPedido, StringFormat=dd/MM/yyyy}" Width="Auto"/>
+                    <DataGridTextColumn Header="Data" Binding="{Binding DataVenda, StringFormat=dd/MM/yyyy}" Width="Auto"/>
                     <DataGridTextColumn Header="Cliente" Binding="{Binding NomeCliente}" Width="*"/>
                     <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, StringFormat=C}" Width="Auto"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
@@ -61,8 +61,12 @@
                         <TextBox Text="{Binding NomeCliente, Mode=OneWay}" 
                                  IsReadOnly="True" Margin="0,0,0,10"/>
 
-                        <TextBlock Text="Data do Pedido:"/>
-                        <TextBox Text="{Binding DataPedido, StringFormat=dd/MM/yyyy HH:mm, Mode=OneWay}" 
+                        <TextBlock Text="Data da Venda:"/>
+                        <TextBox Text="{Binding DataVenda, StringFormat=dd/MM/yyyy HH:mm, Mode=OneWay}" 
+                                 IsReadOnly="True" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Forma de Pagamento:"/>
+                        <TextBox Text="{Binding FormaPagamento, Mode=OneWay}" 
                                  IsReadOnly="True" Margin="0,0,0,10"/>
 
                         <TextBlock Text="Status:"/>
