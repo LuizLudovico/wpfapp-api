@@ -9,18 +9,20 @@ namespace WpfApp.Models
         public Guid Id { get; set; }
         public Guid PessoaId { get; set; }
         public string NomeCliente { get; set; }
-        public DateTime DataPedido { get; set; }
+        public DateTime DataVenda { get; set; }
         public List<ItemPedido> Itens { get; set; }
         public decimal ValorTotal { get; set; }
+        public FormaPagamento FormaPagamento { get; set; }
         public StatusPedido Status { get; set; }
         public string Observacoes { get; set; }
 
         public Pedido()
         {
             Id = Guid.NewGuid();
-            DataPedido = DateTime.Now;
+            DataVenda = DateTime.Now;
             Itens = new List<ItemPedido>();
             Status = StatusPedido.Pendente;
+            FormaPagamento = FormaPagamento.Dinheiro;
         }
 
         public void CalcularTotal()
@@ -41,9 +43,16 @@ namespace WpfApp.Models
     public enum StatusPedido
     {
         Pendente,
-        EmAndamento,
-        Concluido,
-        Cancelado
+        Pago,
+        Enviado,
+        Recebido
+    }
+
+    public enum FormaPagamento
+    {
+        Dinheiro,
+        Cartao,
+        Boleto
     }
 }
 
