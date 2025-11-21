@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using WpfApp.Models;
 using WpfApp.Services;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -244,6 +245,7 @@ namespace WpfApp.ViewModels
         {
             if (PessoaSelecionada != null)
             {
+                // Criar pedido temporário
                 var novoPedido = new Pedido
                 {
                     PessoaId = PessoaSelecionada.Id,
@@ -252,10 +254,20 @@ namespace WpfApp.ViewModels
                     FormaPagamento = FormaPagamento.Dinheiro
                 };
 
-                _pedidoService.Adicionar(novoPedido);
-                CarregarPedidosDaPessoa();
-                MessageBox.Show($"Pedido criado para {PessoaSelecionada.Nome}!\n\nAdicione produtos ao pedido na tela de Pedidos.", 
-                    "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Abrir janela de edição
+                var viewModel = new PedidoEditViewModel(novoPedido);
+                var window = new PedidoEditWindow(viewModel);
+                window.ShowDialog();
+
+                // Se o pedido foi finalizado, salvar
+                if (viewModel.PedidoFinalizado)
+                {
+                    _pedidoService.Adicionar(novoPedido);
+                    CarregarPedidosDaPessoa();
+                    MessageBox.Show($"Pedido finalizado com sucesso!\n\nValor Total: {novoPedido.ValorTotal:C}", 
+                        "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                // Se não foi finalizado, o pedido é descartado (não faz nada)
             }
         }
 
