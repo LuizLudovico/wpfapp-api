@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="100" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="100" fill="#2C3E50" rx="10"/>
+  
+  <!-- Icon Circle -->
+  <circle cx="50" cy="50" r="30" fill="#3498DB"/>
+  
+  <!-- WA Letters in Circle -->
+  <text x="50" y="62" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">WA</text>
+  
+  <!-- App Name -->
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#3498DB">WpfApp</text>
+  
+  <!-- Subtitle -->
+  <text x="100" y="70" font-family="Arial, sans-serif" font-size="14" fill="#BDC3C7">Sistema de Cadastro</text>
+</svg>
+

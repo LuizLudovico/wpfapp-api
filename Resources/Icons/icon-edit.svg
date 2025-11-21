@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="11" fill="#3498DB"/>
+  <path d="M8 16 L6 18 L8 18 L16 10 L14 8 Z" fill="white"/>
+  <path d="M16 8 L18 10 L16 12 L14 10 Z" fill="white"/>
+  <rect x="17" y="7" width="2" height="2" fill="white" transform="rotate(45 18 8)"/>
+</svg>
+

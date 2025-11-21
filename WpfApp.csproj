@@ -182,7 +182,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <!-- Recursos Visuais - Icons -->
+    <Resource Include="Resources\Icons\app-icon.svg" />
+    <Resource Include="Resources\Icons\icon-add.svg" />
+    <Resource Include="Resources\Icons\icon-edit.svg" />
+    <Resource Include="Resources\Icons\icon-save.svg" />
+    <Resource Include="Resources\Icons\icon-delete.svg" />
+    <Resource Include="Resources\Icons\icon-search.svg" />
+    
+    <!-- Recursos Visuais - Images -->
+    <Resource Include="Resources\Images\logo.svg" />
+    <Resource Include="Resources\Images\empty-state.svg" />
+    
+    <!-- Documentação de Recursos -->
+    <None Include="Resources\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
