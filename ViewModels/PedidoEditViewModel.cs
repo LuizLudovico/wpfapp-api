@@ -92,7 +92,7 @@ namespace WpfApp.ViewModels
                 if (itemExistente != null)
                 {
                     itemExistente.Quantidade += Quantidade;
-                    itemExistente.ValorTotal = itemExistente.Quantidade * itemExistente.ValorUnitario;
+                    // Subtotal é calculado automaticamente pela propriedade
                 }
                 else
                 {
@@ -101,8 +101,8 @@ namespace WpfApp.ViewModels
                         ProdutoId = ProdutoSelecionado.Id,
                         NomeProduto = ProdutoSelecionado.Nome,
                         Quantidade = Quantidade,
-                        ValorUnitario = ProdutoSelecionado.Preco,
-                        ValorTotal = Quantidade * ProdutoSelecionado.Preco
+                        PrecoUnitario = ProdutoSelecionado.Preco
+                        // Subtotal é calculado automaticamente: Quantidade * PrecoUnitario
                     };
                     Pedido.Itens.Add(novoItem);
                 }

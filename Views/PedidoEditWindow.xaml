@@ -77,8 +77,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Produto" Binding="{Binding NomeProduto}" Width="*"/>
                         <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="100"/>
-                        <DataGridTextColumn Header="Valor Unit." Binding="{Binding ValorUnitario, StringFormat=C}" Width="120"/>
-                        <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="120"/>
+                        <DataGridTextColumn Header="Preço Unit." Binding="{Binding PrecoUnitario, StringFormat=C}" Width="120"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=C}" Width="120"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
