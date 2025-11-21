@@ -16,8 +16,10 @@ namespace WpfApp.ViewModels
         private ObservableCollection<Pessoa> _pessoas;
         private ObservableCollection<Pedido> _pedidosDaPessoa;
         private Pessoa _pessoaSelecionada;
+        private Pedido _pedidoDaPessoaSelecionado;
         private string _tipoFiltroSelecionado;
         private string _valorFiltro;
+        private string _filtroPedidosDaPessoa;
 
         public ObservableCollection<Pessoa> Pessoas
         {
@@ -39,6 +41,22 @@ namespace WpfApp.ViewModels
         {
             get => _pedidosDaPessoa;
             set => SetProperty(ref _pedidosDaPessoa, value);
+        }
+
+        public Pedido PedidoDaPessoaSelecionado
+        {
+            get => _pedidoDaPessoaSelecionado;
+            set => SetProperty(ref _pedidoDaPessoaSelecionado, value);
+        }
+
+        public string FiltroPedidosDaPessoa
+        {
+            get => _filtroPedidosDaPessoa;
+            set
+            {
+                SetProperty(ref _filtroPedidosDaPessoa, value);
+                CarregarPedidosDaPessoa();
+            }
         }
 
         public string TipoFiltroSelecionado
@@ -66,6 +84,9 @@ namespace WpfApp.ViewModels
         public ICommand SalvarCommand { get; }
         public ICommand ExcluirCommand { get; }
         public ICommand IncluirPedidoCommand { get; }
+        public ICommand MarcarPedidoComoPagoCommand { get; }
+        public ICommand MarcarPedidoComoEnviadoCommand { get; }
+        public ICommand MarcarPedidoComoRecebidoCommand { get; }
 
         public PessoaViewModel()
         {
@@ -77,8 +98,12 @@ namespace WpfApp.ViewModels
             SalvarCommand = new RelayCommand(param => Salvar(), param => PessoaSelecionada != null);
             ExcluirCommand = new RelayCommand(param => Excluir(), param => PessoaSelecionada != null);
             IncluirPedidoCommand = new RelayCommand(param => IncluirPedido(), param => PessoaSelecionada != null);
+            MarcarPedidoComoPagoCommand = new RelayCommand(param => MarcarPedidoComoPago(), param => PedidoDaPessoaSelecionado != null);
+            MarcarPedidoComoEnviadoCommand = new RelayCommand(param => MarcarPedidoComoEnviado(), param => PedidoDaPessoaSelecionado != null);
+            MarcarPedidoComoRecebidoCommand = new RelayCommand(param => MarcarPedidoComoRecebido(), param => PedidoDaPessoaSelecionado != null);
 
             TipoFiltroSelecionado = "Nome";
+            FiltroPedidosDaPessoa = "Todos";
             PedidosDaPessoa = new ObservableCollection<Pedido>();
             CarregarPessoas();
         }
@@ -187,6 +212,26 @@ namespace WpfApp.ViewModels
             if (PessoaSelecionada != null)
             {
                 var pedidos = _pedidoService.ObterPorCliente(PessoaSelecionada.Id);
+                
+                // Aplicar filtro
+                if (FiltroPedidosDaPessoa == "Pagos")
+                {
+                    pedidos = pedidos.Where(p => p.Status == StatusPedido.Pago).ToList();
+                }
+                else if (FiltroPedidosDaPessoa == "Enviados")
+                {
+                    pedidos = pedidos.Where(p => p.Status == StatusPedido.Enviado).ToList();
+                }
+                else if (FiltroPedidosDaPessoa == "Recebidos")
+                {
+                    pedidos = pedidos.Where(p => p.Status == StatusPedido.Recebido).ToList();
+                }
+                else if (FiltroPedidosDaPessoa == "Pendentes")
+                {
+                    pedidos = pedidos.Where(p => p.Status == StatusPedido.Pendente).ToList();
+                }
+                // "Todos" - não aplica filtro
+                
                 PedidosDaPessoa = new ObservableCollection<Pedido>(pedidos);
             }
             else
@@ -211,6 +256,36 @@ namespace WpfApp.ViewModels
                 CarregarPedidosDaPessoa();
                 MessageBox.Show($"Pedido criado para {PessoaSelecionada.Nome}!\n\nAdicione produtos ao pedido na tela de Pedidos.", 
                     "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void MarcarPedidoComoPago()
+        {
+            if (PedidoDaPessoaSelecionado != null)
+            {
+                _pedidoService.AlterarStatus(PedidoDaPessoaSelecionado.Id, StatusPedido.Pago);
+                CarregarPedidosDaPessoa();
+                MessageBox.Show("Pedido marcado como Pago!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void MarcarPedidoComoEnviado()
+        {
+            if (PedidoDaPessoaSelecionado != null)
+            {
+                _pedidoService.AlterarStatus(PedidoDaPessoaSelecionado.Id, StatusPedido.Enviado);
+                CarregarPedidosDaPessoa();
+                MessageBox.Show("Pedido marcado como Enviado!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void MarcarPedidoComoRecebido()
+        {
+            if (PedidoDaPessoaSelecionado != null)
+            {
+                _pedidoService.AlterarStatus(PedidoDaPessoaSelecionado.Id, StatusPedido.Recebido);
+                CarregarPedidosDaPessoa();
+                MessageBox.Show("Pedido marcado como Recebido!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

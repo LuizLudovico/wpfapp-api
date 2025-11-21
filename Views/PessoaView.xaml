@@ -126,11 +126,25 @@
                         
                         <!-- Grid de Pedidos da Pessoa -->
                         <TextBlock Text="Pedidos da Pessoa:" FontWeight="Bold" Margin="0,10,0,5"/>
+                        
+                        <!-- Filtro de Pedidos -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                            <TextBlock Text="Filtrar pedidos:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <ComboBox Width="150" SelectedItem="{Binding FiltroPedidosDaPessoa}">
+                                <ComboBoxItem Content="Todos" IsSelected="True"/>
+                                <ComboBoxItem Content="Pendentes"/>
+                                <ComboBoxItem Content="Pagos"/>
+                                <ComboBoxItem Content="Enviados"/>
+                                <ComboBoxItem Content="Recebidos"/>
+                            </ComboBox>
+                        </StackPanel>
+                        
                         <DataGrid ItemsSource="{Binding PedidosDaPessoa}"
+                                  SelectedItem="{Binding PedidoDaPessoaSelecionado}"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   Height="150"
-                                  Margin="0,0,0,10">
+                                  Margin="0,0,0,5">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Data" Binding="{Binding DataVenda, StringFormat=dd/MM/yyyy}" Width="Auto"/>
                                 <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, StringFormat=C}" Width="Auto"/>
@@ -138,6 +152,16 @@
                                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                        
+                        <!-- Ações do Pedido Selecionado -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Button Content="💰 Pago" Command="{Binding DataContext.MarcarPedidoComoPagoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    Background="#27AE60" Foreground="White" Padding="8,4" Margin="0,0,5,0" BorderThickness="0" Cursor="Hand"/>
+                            <Button Content="📦 Enviado" Command="{Binding DataContext.MarcarPedidoComoEnviadoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    Background="#3498DB" Foreground="White" Padding="8,4" Margin="0,0,5,0" BorderThickness="0" Cursor="Hand"/>
+                            <Button Content="✅ Recebido" Command="{Binding DataContext.MarcarPedidoComoRecebidoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    Background="#2ECC71" Foreground="White" Padding="8,4" Margin="0,0,5,0" BorderThickness="0" Cursor="Hand"/>
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
