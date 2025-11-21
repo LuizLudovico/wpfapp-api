@@ -430,6 +430,37 @@ A interface foi desenvolvida com foco em:
 - **Design Moderno**: Paleta de cores profissional (#2C3E50, #3498DB)
 - **Responsividade**: Layout adaptável
 - **Feedback Visual**: Indicadores de estado e ações
+- **Identidade Visual**: Logo personalizado e ícones profissionais
+
+### 🖼️ Recursos Visuais
+
+A aplicação possui identidade visual completa:
+
+**Logo e Branding:**
+- Logo "WpfApp" no header (400×100 px)
+- Ícone personalizado na janela e taskbar (256×256 px)
+- Paleta de cores consistente em todos os elementos
+
+**Ícones Disponíveis:**
+- 6 ícones de ação (24×24 px): Adicionar, Editar, Salvar, Excluir, Buscar
+- Imagem de estado vazio (300×300 px)
+
+**Localização:**
+```
+Resources/
+├── Icons/
+│   ├── app-icon.png          (Ícone da aplicação)
+│   ├── icon-add.png          (Botão adicionar)
+│   ├── icon-edit.png         (Botão editar)
+│   ├── icon-save.png         (Botão salvar)
+│   ├── icon-delete.png       (Botão excluir)
+│   └── icon-search.png       (Botão buscar)
+└── Images/
+    ├── logo.png              (Logo principal)
+    └── empty-state.png       (Estado vazio)
+```
+
+**Documentação:** [Resources/README.md](Resources/README.md) | [MELHORIAS_VISUAIS.md](MELHORIAS_VISUAIS.md)
 
 ## 📦 Dependências
 
@@ -568,6 +599,7 @@ Execute estes 5 testes essenciais:
 - ✅ Filtros dinâmicos em todas as telas
 - ✅ Integração completa entre módulos
 - ✅ **Testes unitários automatizados (65+ testes, ~85% cobertura)**
+- ✅ **Identidade visual completa (logo, ícones, paleta de cores)**
 
 ### 🚀 Próximas Melhorias:
 - [ ] Adicionar relatórios e gráficos (vendas, estoque)
@@ -589,6 +621,8 @@ Execute estes 5 testes essenciais:
 | [GUIA_DE_TESTES.md](GUIA_DE_TESTES.md) | 34 casos de teste manuais com checklist |
 | [COMO_EXECUTAR.md](COMO_EXECUTAR.md) | Guia detalhado de compilação e execução |
 | [WpfApp.Tests/README.md](WpfApp.Tests/README.md) | Documentação completa dos testes unitários |
+| [Resources/README.md](Resources/README.md) | Guia de recursos visuais (logo, ícones) |
+| [MELHORIAS_VISUAIS.md](MELHORIAS_VISUAIS.md) | Roadmap de melhorias visuais implementadas |
 
 ---
 
@@ -620,10 +654,13 @@ chore:    Configurações
 
 ### 🎨 UI/UX
 - ✅ Interface moderna e intuitiva
+- ✅ **Logo personalizado e identidade visual profissional**
+- ✅ **Ícones customizados (8 recursos PNG)**
 - ✅ Máscaras automáticas em tempo real
 - ✅ Validações com feedback visual (fundo rosa para erros)
 - ✅ Mensagens de sucesso/erro contextuais
 - ✅ Formulários se limpam automaticamente após salvar
+- ✅ Header informativo (versão e data)
 
 ### 🔧 Arquitetura
 - ✅ Padrão MVVM rigoroso
@@ -676,9 +713,10 @@ Este projeto é de código aberto e está disponível sob a licença MIT.
 | 📦 Tela de Produtos | ✅ Completo | 100% |
 | 📋 Tela de Pedidos | ✅ Completo | 100% |
 | 🔗 Integração | ✅ Completo | 100% |
+| 🎨 Recursos Visuais | ✅ Implementado | 8 arquivos PNG |
 | 🧬 Testes Unitários | ✅ Implementado | 65+ testes (~85%) |
 | 🧪 Testes Manuais | ✅ Documentado | 34 casos |
-| 📚 Documentação | ✅ Completa | 6 arquivos |
+| 📚 Documentação | ✅ Completa | 8 arquivos |
 
 **Última Atualização:** Novembro 2025
 
