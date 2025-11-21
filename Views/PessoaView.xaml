@@ -116,9 +116,13 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Endereço:"/>
+                        <TextBlock Text="Exemplo: Rua ABC, 123, Centro - Cidade/SP" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
                         <TextBox Text="{Binding Endereco, UpdateSourceTrigger=PropertyChanged}" 
-                                 Height="60" TextWrapping="Wrap" 
-                                 AcceptsReturn="True" Margin="0,0,0,10"/>
+                                 Height="50" 
+                                 TextWrapping="Wrap" 
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,0,0,15"/>
                         
                         <!-- Grid de Pedidos da Pessoa -->
                         <TextBlock Text="Pedidos da Pessoa:" FontWeight="Bold" Margin="0,10,0,5"/>
