@@ -243,7 +243,7 @@ namespace WpfApp.Views
                 else
                 {
                     textBox.Background = System.Windows.Media.Brushes.LightPink;
-                    textBox.ToolTip = "Data inválida. Use o formato: DD/MM/AAAA (ex: 03/12/1985)";
+                    textBox.ToolTip = "Data inválida. Use o formato: DD/MM/AAAA (ex: 01/01/1999)";
                 }
             }
             else

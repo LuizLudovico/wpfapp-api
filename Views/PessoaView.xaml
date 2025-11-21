@@ -26,10 +26,16 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" 
-                     Text="{Binding FiltroNome, UpdateSourceTrigger=PropertyChanged}"
-                     Style="{StaticResource SearchTextBoxStyle}"
-                     Margin="0,0,10,0"/>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="Filtrar por:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+                <ComboBox Width="120" SelectedItem="{Binding TipoFiltroSelecionado}" Margin="0,0,10,0">
+                    <ComboBoxItem Content="Nome" IsSelected="True"/>
+                    <ComboBoxItem Content="CPF"/>
+                </ComboBox>
+                <TextBox Width="300" 
+                         Text="{Binding ValorFiltro, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource SearchTextBoxStyle}"/>
+            </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button Content="➕ Incluir" Command="{Binding AdicionarCommand}" 
@@ -93,7 +99,7 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Telefone:"/>
-                        <TextBlock Text="Exemplo: (18)99731-6821 ou (18)3341-2500" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBlock Text="Exemplo: (11)99999-9999 ou (11)3333-2222" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
                         <TextBox x:Name="TxtTelefone"
                                  Text="{Binding Telefone, UpdateSourceTrigger=PropertyChanged}" 
                                  TextChanged="TxtTelefone_TextChanged"
@@ -101,7 +107,7 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Data de Nascimento:"/>
-                        <TextBlock Text="Exemplo: 03/12/1985" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
+                        <TextBlock Text="Exemplo: 01/01/1900" FontSize="10" Foreground="Gray" Margin="0,0,0,2"/>
                         <TextBox x:Name="TxtDataNascimento"
                                  Text="{Binding DataNascimento, Converter={StaticResource DateConverter}, UpdateSourceTrigger=LostFocus}"
                                  TextChanged="TxtDataNascimento_TextChanged"

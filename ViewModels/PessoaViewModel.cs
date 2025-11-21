@@ -15,7 +15,8 @@ namespace WpfApp.ViewModels
         private ObservableCollection<Pessoa> _pessoas;
         private ObservableCollection<Pedido> _pedidosDaPessoa;
         private Pessoa _pessoaSelecionada;
-        private string _filtroNome;
+        private string _tipoFiltroSelecionado;
+        private string _valorFiltro;
 
         public ObservableCollection<Pessoa> Pessoas
         {
@@ -39,12 +40,22 @@ namespace WpfApp.ViewModels
             set => SetProperty(ref _pedidosDaPessoa, value);
         }
 
-        public string FiltroNome
+        public string TipoFiltroSelecionado
         {
-            get => _filtroNome;
+            get => _tipoFiltroSelecionado;
             set
             {
-                SetProperty(ref _filtroNome, value);
+                SetProperty(ref _tipoFiltroSelecionado, value);
+                AplicarFiltro();
+            }
+        }
+
+        public string ValorFiltro
+        {
+            get => _valorFiltro;
+            set
+            {
+                SetProperty(ref _valorFiltro, value);
                 AplicarFiltro();
             }
         }
@@ -66,6 +77,7 @@ namespace WpfApp.ViewModels
             ExcluirCommand = new RelayCommand(param => Excluir(), param => PessoaSelecionada != null);
             IncluirPedidoCommand = new RelayCommand(param => IncluirPedido(), param => PessoaSelecionada != null);
 
+            TipoFiltroSelecionado = "Nome";
             PedidosDaPessoa = new ObservableCollection<Pedido>();
             CarregarPessoas();
         }
@@ -78,13 +90,30 @@ namespace WpfApp.ViewModels
 
         private void AplicarFiltro()
         {
-            if (string.IsNullOrWhiteSpace(FiltroNome))
+            if (string.IsNullOrWhiteSpace(ValorFiltro))
             {
                 CarregarPessoas();
             }
             else
             {
-                var pessoasFiltradas = _pessoaService.BuscarPorNome(FiltroNome);
+                List<Pessoa> pessoasFiltradas;
+
+                if (TipoFiltroSelecionado == "Nome")
+                {
+                    pessoasFiltradas = _pessoaService.BuscarPorNome(ValorFiltro);
+                }
+                else if (TipoFiltroSelecionado == "CPF")
+                {
+                    pessoasFiltradas = _pessoaService.ObterTodas()
+                        .Where(p => p.CPF != null && p.CPF.Contains(ValorFiltro))
+                        .OrderBy(p => p.Nome)
+                        .ToList();
+                }
+                else
+                {
+                    pessoasFiltradas = _pessoaService.ObterTodas();
+                }
+
                 Pessoas = new ObservableCollection<Pessoa>(pessoasFiltradas);
             }
         }
