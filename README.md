@@ -115,7 +115,7 @@ WpfApp/
   - Data da Venda (automática)
   - Lista de Itens (Produto, Qtd, Valor Unit., Subtotal)
   - Valor Total (calculado automaticamente)
-  - Forma de Pagamento: **Dinheiro**, **PIX**, **Cartão**, **Boleto** (seleção via dropdown)
+  - Forma de Pagamento: **Dinheiro**, **Pix**, **Cartão**, **Boleto** (seleção via dropdown)
   - Status (Pendente → Pago → Enviado → Recebido)
   - Observações (texto livre)
 
@@ -431,9 +431,6 @@ A interface foi desenvolvida com foco em:
 - **Responsividade**: Layout adaptável
 - **Feedback Visual**: Indicadores de estado e ações
 
-### Capturas de Tela
-*(Adicione screenshots da aplicação aqui)*
-
 ## 📦 Dependências
 
 - **Newtonsoft.Json** (13.0.3): Serialização/Deserialização JSON
@@ -455,8 +452,6 @@ O projeto possui uma **suite completa de testes unitários** com NUnit:
 - **MascaraHelper** (7 testes): Máscaras de data
 - **Models** (14 testes): Pedido, ItemPedido, cálculos
 - **Services** (24 testes): CRUD, LINQ queries
-
-**📖 Guia de Execução:** [GUIA_TESTES_UNITARIOS.md](GUIA_TESTES_UNITARIOS.md)
 
 **🚀 Execução Rápida:**
 1. Abra `WpfApp.sln` no Visual Studio
@@ -591,11 +586,8 @@ Execute estes 5 testes essenciais:
 
 | Documento | Descrição |
 |-----------|-----------|
-| [GUIA_TESTES_UNITARIOS.md](GUIA_TESTES_UNITARIOS.md) | **65+ testes automatizados (~85% cobertura)** |
 | [GUIA_DE_TESTES.md](GUIA_DE_TESTES.md) | 34 casos de teste manuais com checklist |
 | [COMO_EXECUTAR.md](COMO_EXECUTAR.md) | Guia detalhado de compilação e execução |
-| [COMMITS_SEMANTICOS.md](COMMITS_SEMANTICOS.md) | Histórico de commits organizados por funcionalidade |
-| [STATUS_FUNCIONALIDADES.md](STATUS_FUNCIONALIDADES.md) | Status de implementação e pontuação |
 | [WpfApp.Tests/README.md](WpfApp.Tests/README.md) | Documentação completa dos testes unitários |
 
 ---
@@ -622,9 +614,6 @@ chore:    Configurações
 ✅ fix(mascaras): corrigir comportamento do cursor em CPF e Telefone
 ✅ docs: adicionar guias de testes e execução
 ```
-
-Veja todos os commits em: [COMMITS_SEMANTICOS.md](COMMITS_SEMANTICOS.md)
-
 ---
 
 ## 🌟 Destaques Técnicos
