@@ -97,6 +97,7 @@
 
                         <TextBlock Text="Forma de Pagamento:"/>
                         <ComboBox SelectedValue="{Binding FormaPagamento}" 
+                                  SelectedValuePath="Tag"
                                   IsEnabled="{Binding DataContext.PedidoPodeSerEditado, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   Margin="0,0,0,10">
                             <ComboBoxItem Content="Dinheiro" Tag="0"/>
