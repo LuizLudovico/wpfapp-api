@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Magnifying glass circle -->
+  <circle cx="10" cy="10" r="7" fill="none" stroke="#95A5A6" stroke-width="2"/>
+  
+  <!-- Magnifying glass handle -->
+  <line x1="15" y1="15" x2="21" y2="21" stroke="#95A5A6" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Inner reflection (optional detail) -->
+  <circle cx="8" cy="8" r="2" fill="white" opacity="0.5"/>
+</svg>
+

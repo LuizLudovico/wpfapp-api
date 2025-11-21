@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Plus sign -->
+  <rect x="11" y="4" width="2" height="16" fill="#27AE60" rx="1"/>
+  <rect x="4" y="11" width="16" height="2" fill="#27AE60" rx="1"/>
+  
+  <!-- Circle border -->
+  <circle cx="12" cy="12" r="10" fill="none" stroke="#27AE60" stroke-width="2"/>
+</svg>
+

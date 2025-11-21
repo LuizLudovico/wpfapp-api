@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Floppy disk body -->
+  <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4z" 
+        fill="#3498DB"/>
+  
+  <!-- Save area -->
+  <rect x="5" y="13" width="14" height="8" fill="#2980B9"/>
+  
+  <!-- Top notch -->
+  <rect x="14" y="3" width="3" height="5" fill="#2C3E50"/>
+</svg>
+
