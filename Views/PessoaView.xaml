@@ -156,7 +156,7 @@
                                   Margin="0,0,0,5">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Data" Binding="{Binding DataVenda, StringFormat=dd/MM/yyyy}" Width="Auto"/>
-                                <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, StringFormat='R$ {0:N2}'}" Width="Auto"/>
+                                <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, Converter={StaticResource CurrencyConverter}}" Width="Auto"/>
                                 <DataGridTextColumn Header="Forma Pgto" Binding="{Binding FormaPagamento}" Width="Auto"/>
                                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                             </DataGrid.Columns>

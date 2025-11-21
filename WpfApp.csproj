@@ -86,6 +86,7 @@
     <Compile Include="Services\PessoaService.cs" />
     <Compile Include="Services\ProdutoService.cs" />
     <Compile Include="Services\ValidationHelper.cs" />
+    <Compile Include="ViewModels\CurrencyConverter.cs" />
     <Compile Include="ViewModels\DateConverter.cs" />
     <Compile Include="ViewModels\InverseBooleanConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

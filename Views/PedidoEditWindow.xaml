@@ -77,8 +77,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Produto" Binding="{Binding NomeProduto}" Width="*"/>
                         <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="100"/>
-                        <DataGridTextColumn Header="Preço Unit." Binding="{Binding PrecoUnitario, StringFormat='R$ {0:N2}'}" Width="120"/>
-                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat='R$ {0:N2}'}" Width="120"/>
+                        <DataGridTextColumn Header="Preço Unit." Binding="{Binding PrecoUnitario, Converter={StaticResource CurrencyConverter}}" Width="120"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, Converter={StaticResource CurrencyConverter}}" Width="120"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -93,7 +93,7 @@
         <Border Grid.Row="3" BorderBrush="#27AE60" BorderThickness="2" Padding="15" CornerRadius="5" Margin="0,0,0,15" Background="#E8F8F5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="💰 Valor Total: " FontSize="18" FontWeight="Bold" Foreground="#27AE60" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Pedido.ValorTotal, StringFormat='R$ {0:N2}'}" FontSize="24" FontWeight="Bold" Foreground="#27AE60" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Pedido.ValorTotal, Converter={StaticResource CurrencyConverter}}" FontSize="24" FontWeight="Bold" Foreground="#27AE60" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
 

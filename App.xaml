@@ -1,9 +1,14 @@
 <Application x:Class="WpfApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:WpfApp.ViewModels"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Converters -->
+            <vm:CurrencyConverter x:Key="CurrencyConverter"/>
+            <vm:DateConverter x:Key="DateConverter"/>
+            <vm:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <!-- Estilo para Botões do Menu -->
             <Style x:Key="MenuButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="#34495E"/>
