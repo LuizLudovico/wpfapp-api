@@ -27,8 +27,17 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <!-- Logo PNG -->
-                <Image Grid.Column="0" Source="/Resources/Images/logo.png" Height="40" Margin="0,0,15,0"/>
+                <!-- Logo e Título -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Ícone Circular WA -->
+                    <Image Source="/Resources/Icons/app-icon.png" Width="50" Height="50" Margin="0,0,15,0"/>
+                    
+                    <!-- Textos -->
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="WpfApp" FontSize="22" FontWeight="Bold" Foreground="#3498DB"/>
+                        <TextBlock Text="Sistema de Cadastro" FontSize="16" FontWeight="SemiBold" Foreground="White" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </StackPanel>
                 
                 <!-- Info Adicional -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
