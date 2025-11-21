@@ -26,7 +26,10 @@
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock Text="Filtrar por:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
-                <ComboBox Width="150" SelectedItem="{Binding TipoFiltroSelecionado}" Margin="0,0,10,0">
+                <ComboBox Width="150" 
+                          SelectedValue="{Binding TipoFiltroSelecionado}"
+                          SelectedValuePath="Content"
+                          Margin="0,0,10,0">
                     <ComboBoxItem Content="Nome" IsSelected="True"/>
                     <ComboBoxItem Content="Código"/>
                     <ComboBoxItem Content="Faixa de Valor"/>
