@@ -182,17 +182,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <!-- Recursos Visuais - Icons -->
-    <Resource Include="Resources\Icons\app-icon.svg" />
-    <Resource Include="Resources\Icons\icon-add.svg" />
-    <Resource Include="Resources\Icons\icon-edit.svg" />
-    <Resource Include="Resources\Icons\icon-save.svg" />
-    <Resource Include="Resources\Icons\icon-delete.svg" />
-    <Resource Include="Resources\Icons\icon-search.svg" />
+    <!-- Recursos Visuais - Icons (PNG) -->
+    <Resource Include="Resources\Icons\app-icon.png" />
+    <Resource Include="Resources\Icons\icon-add.png" />
+    <Resource Include="Resources\Icons\icon-edit.png" />
+    <Resource Include="Resources\Icons\icon-save.png" />
+    <Resource Include="Resources\Icons\icon-delete.png" />
+    <Resource Include="Resources\Icons\icon-search.png" />
     
-    <!-- Recursos Visuais - Images -->
-    <Resource Include="Resources\Images\logo.svg" />
-    <Resource Include="Resources\Images\empty-state.svg" />
+    <!-- Recursos Visuais - Images (PNG) -->
+    <Resource Include="Resources\Images\logo.png" />
+    <Resource Include="Resources\Images\empty-state.png" />
     
     <!-- Documentação de Recursos -->
     <None Include="Resources\README.md" />
