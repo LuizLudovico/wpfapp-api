@@ -460,7 +460,7 @@ Resources/
     └── empty-state.png       (Estado vazio)
 ```
 
-**Documentação:** [Resources/README.md](Resources/README.md) | [MELHORIAS_VISUAIS.md](MELHORIAS_VISUAIS.md)
+**Documentação:** [Resources/README.md](Resources/README.md) 
 
 ## 📦 Dependências
 
@@ -622,7 +622,7 @@ Execute estes 5 testes essenciais:
 | [COMO_EXECUTAR.md](COMO_EXECUTAR.md) | Guia detalhado de compilação e execução |
 | [WpfApp.Tests/README.md](WpfApp.Tests/README.md) | Documentação completa dos testes unitários |
 | [Resources/README.md](Resources/README.md) | Guia de recursos visuais (logo, ícones) |
-| [MELHORIAS_VISUAIS.md](MELHORIAS_VISUAIS.md) | Roadmap de melhorias visuais implementadas |
+
 
 ---
 
