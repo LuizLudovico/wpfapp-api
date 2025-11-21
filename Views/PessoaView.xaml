@@ -138,7 +138,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                             <TextBlock Text="Filtrar pedidos:" VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <ComboBox Width="150" 
-                                      SelectedValue="{Binding FiltroPedidosDaPessoa}"
+                                      SelectedValue="{Binding DataContext.FiltroPedidosDaPessoa, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                       SelectedValuePath="Content">
                                 <ComboBoxItem Content="Todos" IsSelected="True"/>
                                 <ComboBoxItem Content="Pendentes"/>
@@ -148,8 +148,8 @@
                             </ComboBox>
                         </StackPanel>
                         
-                        <DataGrid ItemsSource="{Binding PedidosDaPessoa}"
-                                  SelectedItem="{Binding PedidoDaPessoaSelecionado}"
+                        <DataGrid ItemsSource="{Binding DataContext.PedidosDaPessoa, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                  SelectedItem="{Binding DataContext.PedidoDaPessoaSelecionado, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   Height="150"
