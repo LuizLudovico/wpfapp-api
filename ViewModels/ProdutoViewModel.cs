@@ -13,7 +13,10 @@ namespace WpfApp.ViewModels
         private readonly ProdutoService _produtoService;
         private ObservableCollection<Produto> _produtos;
         private Produto _produtoSelecionado;
-        private string _filtroNome;
+        private string _tipoFiltroSelecionado;
+        private string _valorFiltro;
+        private string _valorMinimo;
+        private string _valorMaximo;
 
         public ObservableCollection<Produto> Produtos
         {
@@ -27,20 +30,58 @@ namespace WpfApp.ViewModels
             set => SetProperty(ref _produtoSelecionado, value);
         }
 
-        public string FiltroNome
+        public string TipoFiltroSelecionado
         {
-            get => _filtroNome;
+            get => _tipoFiltroSelecionado;
             set
             {
-                SetProperty(ref _filtroNome, value);
+                SetProperty(ref _tipoFiltroSelecionado, value);
+                // Limpar valores ao trocar de filtro
+                ValorFiltro = string.Empty;
+                ValorMinimo = string.Empty;
+                ValorMaximo = string.Empty;
+                OnPropertyChanged(nameof(MostrarFiltroTexto));
+                OnPropertyChanged(nameof(MostrarFiltroFaixa));
+            }
+        }
+
+        public string ValorFiltro
+        {
+            get => _valorFiltro;
+            set
+            {
+                SetProperty(ref _valorFiltro, value);
                 AplicarFiltro();
             }
         }
 
+        public string ValorMinimo
+        {
+            get => _valorMinimo;
+            set
+            {
+                SetProperty(ref _valorMinimo, value);
+                AplicarFiltro();
+            }
+        }
+
+        public string ValorMaximo
+        {
+            get => _valorMaximo;
+            set
+            {
+                SetProperty(ref _valorMaximo, value);
+                AplicarFiltro();
+            }
+        }
+
+        public bool MostrarFiltroTexto => TipoFiltroSelecionado == "Nome" || TipoFiltroSelecionado == "Código";
+        public bool MostrarFiltroFaixa => TipoFiltroSelecionado == "Faixa de Valor";
+
         public ICommand AdicionarCommand { get; }
         public ICommand EditarCommand { get; }
+        public ICommand SalvarCommand { get; }
         public ICommand ExcluirCommand { get; }
-        public ICommand LimparCommand { get; }
 
         public ProdutoViewModel()
         {
@@ -48,9 +89,10 @@ namespace WpfApp.ViewModels
             
             AdicionarCommand = new RelayCommand(param => Adicionar());
             EditarCommand = new RelayCommand(param => Editar(), param => ProdutoSelecionado != null);
+            SalvarCommand = new RelayCommand(param => Salvar(), param => ProdutoSelecionado != null);
             ExcluirCommand = new RelayCommand(param => Excluir(), param => ProdutoSelecionado != null);
-            LimparCommand = new RelayCommand(param => Limpar());
 
+            TipoFiltroSelecionado = "Nome";
             CarregarProdutos();
         }
 
@@ -62,14 +104,51 @@ namespace WpfApp.ViewModels
 
         private void AplicarFiltro()
         {
-            if (string.IsNullOrWhiteSpace(FiltroNome))
+            if (TipoFiltroSelecionado == "Nome")
             {
-                CarregarProdutos();
+                if (string.IsNullOrWhiteSpace(ValorFiltro))
+                {
+                    CarregarProdutos();
+                }
+                else
+                {
+                    var produtosFiltrados = _produtoService.BuscarPorNome(ValorFiltro);
+                    Produtos = new ObservableCollection<Produto>(produtosFiltrados);
+                }
+            }
+            else if (TipoFiltroSelecionado == "Código")
+            {
+                if (string.IsNullOrWhiteSpace(ValorFiltro))
+                {
+                    CarregarProdutos();
+                }
+                else
+                {
+                    var produtosFiltrados = _produtoService.BuscarPorCodigo(ValorFiltro);
+                    Produtos = new ObservableCollection<Produto>(produtosFiltrados);
+                }
+            }
+            else if (TipoFiltroSelecionado == "Faixa de Valor")
+            {
+                decimal? min = null;
+                decimal? max = null;
+
+                if (!string.IsNullOrWhiteSpace(ValorMinimo) && decimal.TryParse(ValorMinimo, out decimal minValue))
+                {
+                    min = minValue;
+                }
+
+                if (!string.IsNullOrWhiteSpace(ValorMaximo) && decimal.TryParse(ValorMaximo, out decimal maxValue))
+                {
+                    max = maxValue;
+                }
+
+                var produtosFiltrados = _produtoService.BuscarPorFaixaDeValor(min, max);
+                Produtos = new ObservableCollection<Produto>(produtosFiltrados);
             }
             else
             {
-                var produtosFiltrados = _produtoService.BuscarPorNome(FiltroNome);
-                Produtos = new ObservableCollection<Produto>(produtosFiltrados);
+                CarregarProdutos();
             }
         }
 
@@ -93,10 +172,28 @@ namespace WpfApp.ViewModels
 
         private void Editar()
         {
+            // Botão Editar habilita a edição do produto selecionado
+            // No WPF com DataBinding, a edição já é automática ao selecionar
+            if (ProdutoSelecionado != null)
+            {
+                MessageBox.Show(
+                    $"Editando: {ProdutoSelecionado.Nome}\n\nModifique os campos desejados e clique em 💾 Salvar.",
+                    "Modo de Edição",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+
+        private void Salvar()
+        {
             if (ProdutoSelecionado != null)
             {
                 _produtoService.Atualizar(ProdutoSelecionado);
-                MessageBox.Show("Produto atualizado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Produto salvo com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                // Limpa o formulário após salvar
+                ProdutoSelecionado = null;
+                CarregarProdutos();
             }
         }
 
@@ -117,12 +214,6 @@ namespace WpfApp.ViewModels
                     ProdutoSelecionado = null;
                 }
             }
-        }
-
-        private void Limpar()
-        {
-            ProdutoSelecionado = null;
-            FiltroNome = string.Empty;
         }
     }
 }
