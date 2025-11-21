@@ -28,15 +28,19 @@
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock Text="Filtrar por:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
-                <ComboBox Width="120" 
+                <ComboBox x:Name="CmbTipoFiltro"
+                          Width="120" 
                           SelectedValue="{Binding TipoFiltroSelecionado}"
                           SelectedValuePath="Content"
+                          SelectionChanged="CmbTipoFiltro_SelectionChanged"
                           Margin="0,0,10,0">
                     <ComboBoxItem Content="Nome" IsSelected="True"/>
                     <ComboBoxItem Content="CPF"/>
                 </ComboBox>
-                <TextBox Width="300" 
+                <TextBox x:Name="TxtFiltro"
+                         Width="300" 
                          Text="{Binding ValorFiltro, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="TxtFiltro_TextChanged"
                          Style="{StaticResource SearchTextBoxStyle}"/>
             </StackPanel>
 

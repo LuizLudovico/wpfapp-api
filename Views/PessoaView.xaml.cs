@@ -252,6 +252,87 @@ namespace WpfApp.Views
                 textBox.ToolTip = "Digite a data de nascimento";
             }
         }
+
+        private void CmbTipoFiltro_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Limpa o campo de filtro quando trocar o tipo
+            if (TxtFiltro != null)
+            {
+                TxtFiltro.Text = string.Empty;
+                
+                // Atualiza placeholder/dica
+                var comboBox = sender as ComboBox;
+                if (comboBox?.SelectedItem is ComboBoxItem item)
+                {
+                    if (item.Content.ToString() == "CPF")
+                    {
+                        TxtFiltro.ToolTip = "Digite o CPF (máscara automática: 001.001.001-00)";
+                    }
+                    else
+                    {
+                        TxtFiltro.ToolTip = "Digite o nome para buscar";
+                    }
+                }
+            }
+        }
+
+        private void TxtFiltro_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == null) return;
+
+            // Verifica qual é o tipo de filtro selecionado
+            if (CmbTipoFiltro?.SelectedItem is ComboBoxItem item && item.Content.ToString() == "CPF")
+            {
+                // Aplica máscara de CPF
+                int cursorPosition = textBox.SelectionStart;
+                string textoAnterior = textBox.Text;
+                
+                // Remove formatação
+                string textoSemFormatacao = ValidationHelper.RemoverFormatacao(textBox.Text);
+                
+                // Limita a 11 dígitos
+                if (textoSemFormatacao.Length > 11)
+                    textoSemFormatacao = textoSemFormatacao.Substring(0, 11);
+
+                // Aplica formatação
+                string textoFormatado = ValidationHelper.FormatarCPF(textoSemFormatacao);
+                
+                // Só atualiza se mudou
+                if (textBox.Text != textoFormatado)
+                {
+                    // Remove o handler temporariamente para evitar loop
+                    textBox.TextChanged -= TxtFiltro_TextChanged;
+                    
+                    textBox.Text = textoFormatado;
+                    
+                    // Ajusta cursor
+                    if (cursorPosition >= textoAnterior.Length)
+                    {
+                        textBox.SelectionStart = textoFormatado.Length;
+                    }
+                    else
+                    {
+                        // Calcula nova posição baseada no número de dígitos antes do cursor
+                        int digitosAntes = ValidationHelper.RemoverFormatacao(textoAnterior.Substring(0, cursorPosition)).Length;
+                        int novaPosicao = 0;
+                        int digitosContados = 0;
+                        
+                        for (int i = 0; i < textoFormatado.Length && digitosContados < digitosAntes; i++)
+                        {
+                            if (char.IsDigit(textoFormatado[i]))
+                                digitosContados++;
+                            novaPosicao = i + 1;
+                        }
+                        
+                        textBox.SelectionStart = System.Math.Min(novaPosicao, textoFormatado.Length);
+                    }
+                    
+                    // Reativa o handler
+                    textBox.TextChanged += TxtFiltro_TextChanged;
+                }
+            }
+        }
     }
 }
 
