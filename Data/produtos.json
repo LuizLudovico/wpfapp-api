@@ -1,0 +1,57 @@
+[
+  {
+    "Id": "650e8400-e29b-41d4-a716-446655440001",
+    "Nome": "Notebook Dell Inspiron 15",
+    "Codigo": "DELL-NB-001",
+    "Descricao": "Notebook Intel Core i7, 16GB RAM, SSD 512GB",
+    "Preco": 3499.90,
+    "QuantidadeEstoque": 15,
+    "Categoria": "Informática",
+    "CodigoBarras": "7891234567890",
+    "DataCadastro": "2025-01-01T08:00:00"
+  },
+  {
+    "Id": "650e8400-e29b-41d4-a716-446655440002",
+    "Nome": "Mouse Logitech MX Master 3",
+    "Codigo": "LOG-MS-002",
+    "Descricao": "Mouse sem fio ergonômico com alta precisão",
+    "Preco": 599.00,
+    "QuantidadeEstoque": 50,
+    "Categoria": "Periféricos",
+    "CodigoBarras": "7891234567891",
+    "DataCadastro": "2025-01-01T08:15:00"
+  },
+  {
+    "Id": "650e8400-e29b-41d4-a716-446655440003",
+    "Nome": "Teclado Mecânico Keychron K2",
+    "Codigo": "KEY-KB-003",
+    "Descricao": "Teclado mecânico RGB, switches Blue",
+    "Preco": 899.00,
+    "QuantidadeEstoque": 30,
+    "Categoria": "Periféricos",
+    "CodigoBarras": "7891234567892",
+    "DataCadastro": "2025-01-01T08:30:00"
+  },
+  {
+    "Id": "650e8400-e29b-41d4-a716-446655440004",
+    "Nome": "Monitor LG UltraWide 29\"",
+    "Codigo": "LG-MON-004",
+    "Descricao": "Monitor 29 polegadas, 2560x1080, IPS",
+    "Preco": 1299.00,
+    "QuantidadeEstoque": 8,
+    "Categoria": "Monitores",
+    "CodigoBarras": "7891234567893",
+    "DataCadastro": "2025-01-01T08:45:00"
+  },
+  {
+    "Id": "650e8400-e29b-41d4-a716-446655440005",
+    "Nome": "Webcam Logitech C920",
+    "Codigo": "LOG-WC-005",
+    "Descricao": "Webcam Full HD 1080p com microfone",
+    "Preco": 449.00,
+    "QuantidadeEstoque": 25,
+    "Categoria": "Periféricos",
+    "CodigoBarras": "7891234567894",
+    "DataCadastro": "2025-01-01T09:00:00"
+  }
+]

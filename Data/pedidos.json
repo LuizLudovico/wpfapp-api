@@ -1,0 +1,80 @@
+[
+  {
+    "Id": "750e8400-e29b-41d4-a716-446655440001",
+    "PessoaId": "550e8400-e29b-41d4-a716-446655440001",
+    "NomeCliente": "João Silva",
+    "DataVenda": "2025-01-10T10:30:00",
+    "ValorTotal": 4998.90,
+    "FormaPagamento": 1,
+    "Status": 3,
+    "Observacoes": "Pedido concluído e entregue",
+    "Itens": [
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440001",
+        "NomeProduto": "Notebook Dell Inspiron 15",
+        "Quantidade": 1,
+        "PrecoUnitario": 3499.90,
+        "Subtotal": 3499.90
+      },
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440003",
+        "NomeProduto": "Teclado Mecânico Keychron K2",
+        "Quantidade": 1,
+        "PrecoUnitario": 899.00,
+        "Subtotal": 899.00
+      },
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440002",
+        "NomeProduto": "Mouse Logitech MX Master 3",
+        "Quantidade": 1,
+        "PrecoUnitario": 599.00,
+        "Subtotal": 599.00
+      }
+    ]
+  },
+  {
+    "Id": "750e8400-e29b-41d4-a716-446655440002",
+    "PessoaId": "550e8400-e29b-41d4-a716-446655440002",
+    "NomeCliente": "Maria Santos",
+    "DataVenda": "2025-01-15T14:00:00",
+    "ValorTotal": 1299.00,
+    "FormaPagamento": 0,
+    "Status": 0,
+    "Observacoes": "Cliente aguardando confirmação",
+    "Itens": [
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440004",
+        "NomeProduto": "Monitor LG UltraWide 29\"",
+        "Quantidade": 1,
+        "PrecoUnitario": 1299.00,
+        "Subtotal": 1299.00
+      }
+    ]
+  },
+  {
+    "Id": "750e8400-e29b-41d4-a716-446655440003",
+    "PessoaId": "550e8400-e29b-41d4-a716-446655440003",
+    "NomeCliente": "Carlos Oliveira",
+    "DataVenda": "2025-01-16T09:30:00",
+    "ValorTotal": 1048.00,
+    "FormaPagamento": 2,
+    "Status": 1,
+    "Observacoes": "Em separação no estoque",
+    "Itens": [
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440002",
+        "NomeProduto": "Mouse Logitech MX Master 3",
+        "Quantidade": 1,
+        "PrecoUnitario": 599.00,
+        "Subtotal": 599.00
+      },
+      {
+        "ProdutoId": "650e8400-e29b-41d4-a716-446655440005",
+        "NomeProduto": "Webcam Logitech C920",
+        "Quantidade": 1,
+        "PrecoUnitario": 449.00,
+        "Subtotal": 449.00
+      }
+    ]
+  }
+]

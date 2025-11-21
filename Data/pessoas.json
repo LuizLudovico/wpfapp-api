@@ -1,0 +1,33 @@
+[
+  {
+    "Id": "550e8400-e29b-41d4-a716-446655440001",
+    "Nome": "João Silva",
+    "CPF": "123.456.789-00",
+    "Email": "joao.silva@email.com",
+    "Telefone": "(11) 98765-4321",
+    "DataNascimento": "1990-05-15T00:00:00",
+    "Endereco": "Rua das Flores, 123 - São Paulo/SP",
+    "DataCadastro": "2025-01-01T10:00:00"
+  },
+  {
+    "Id": "550e8400-e29b-41d4-a716-446655440002",
+    "Nome": "Maria Santos",
+    "CPF": "987.654.321-00",
+    "Email": "maria.santos@email.com",
+    "Telefone": "(21) 91234-5678",
+    "DataNascimento": "1985-08-20T00:00:00",
+    "Endereco": "Av. Paulista, 1000 - São Paulo/SP",
+    "DataCadastro": "2025-01-02T14:30:00"
+  },
+  {
+    "Id": "550e8400-e29b-41d4-a716-446655440003",
+    "Nome": "Carlos Oliveira",
+    "CPF": "456.789.123-00",
+    "Email": "carlos.oliveira@email.com",
+    "Telefone": "(11) 97654-3210",
+    "DataNascimento": "1992-03-10T00:00:00",
+    "Endereco": "Rua Augusta, 500 - São Paulo/SP",
+    "DataCadastro": "2025-01-03T09:15:00"
+  }
+]
+
