@@ -74,7 +74,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Data" Binding="{Binding DataVenda, StringFormat=dd/MM/yyyy}" Width="Auto"/>
                     <DataGridTextColumn Header="Cliente" Binding="{Binding NomeCliente}" Width="*"/>
-                    <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, StringFormat=C}" Width="Auto"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding ValorTotal, StringFormat='R$ {0:N2}'}" Width="Auto"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -112,7 +112,7 @@
                                  Margin="0,0,0,10"/>
 
                         <TextBlock Text="Valor Total:"/>
-                        <TextBox Text="{Binding ValorTotal, StringFormat=C, Mode=OneWay}" 
+                        <TextBox Text="{Binding ValorTotal, StringFormat='R$ {0:N2}', Mode=OneWay}" 
                                  IsReadOnly="True" FontWeight="Bold" 
                                  Margin="0,0,0,10"/>
 
@@ -130,8 +130,8 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Produto" Binding="{Binding NomeProduto}" Width="*"/>
                                 <DataGridTextColumn Header="Qtd" Binding="{Binding Quantidade}" Width="50"/>
-                                <DataGridTextColumn Header="Preço Un." Binding="{Binding PrecoUnitario, StringFormat=C}" Width="Auto"/>
-                                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=C}" Width="Auto"/>
+                                <DataGridTextColumn Header="Preço Un." Binding="{Binding PrecoUnitario, StringFormat='R$ {0:N2}'}" Width="Auto"/>
+                                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat='R$ {0:N2}'}" Width="Auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
