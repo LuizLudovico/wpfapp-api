@@ -214,6 +214,9 @@ namespace WpfApp.ViewModels
             {
                 var pedidos = _pedidoService.ObterPorCliente(PessoaSelecionada.Id);
                 
+                // Debug: mostrar quantos pedidos foram encontrados
+                System.Diagnostics.Debug.WriteLine($"Pedidos encontrados para {PessoaSelecionada.Nome} (ID: {PessoaSelecionada.Id}): {pedidos.Count}");
+                
                 // Aplicar filtro
                 if (FiltroPedidosDaPessoa == "Pagos")
                 {
@@ -233,7 +236,10 @@ namespace WpfApp.ViewModels
                 }
                 // "Todos" - não aplica filtro
                 
+                System.Diagnostics.Debug.WriteLine($"Após filtro '{FiltroPedidosDaPessoa}': {pedidos.Count} pedidos");
+                
                 PedidosDaPessoa = new ObservableCollection<Pedido>(pedidos);
+                OnPropertyChanged(nameof(PedidosDaPessoa)); // Notificação explícita
             }
             else
             {
@@ -262,9 +268,16 @@ namespace WpfApp.ViewModels
                 // Se o pedido foi finalizado, salvar
                 if (viewModel.PedidoFinalizado)
                 {
-                    _pedidoService.Adicionar(novoPedido);
+                    // Garantir que o PessoaId está correto
+                    viewModel.Pedido.PessoaId = PessoaSelecionada.Id;
+                    viewModel.Pedido.NomeCliente = PessoaSelecionada.Nome;
+                    
+                    _pedidoService.Adicionar(viewModel.Pedido);
+                    
+                    // Recarregar pedidos da pessoa
                     CarregarPedidosDaPessoa();
-                    MessageBox.Show($"Pedido finalizado com sucesso!\n\nValor Total: {novoPedido.ValorTotal:C}", 
+                    
+                    MessageBox.Show($"Pedido finalizado com sucesso!\n\nValor Total: {viewModel.Pedido.ValorTotal:C}", 
                         "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 // Se não foi finalizado, o pedido é descartado (não faz nada)
