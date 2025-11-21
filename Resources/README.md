@@ -36,9 +36,22 @@ Todos os recursos seguem a paleta de cores da aplicação:
 
 ---
 
+## ⚠️ IMPORTANTE: Conversão Necessária
+
+Os arquivos estão em **SVG** (formato vetorial). O WPF não suporta SVG nativamente, então é necessário converter para **PNG** e **ICO**.
+
+**Erro comum:**
+```
+IOException: Não é possível localizar o recurso 'resources/icons/app-icon.ico'
+```
+
+**Solução:** Converta os arquivos SVG conforme instruções abaixo.
+
+---
+
 ## 🔄 Como Converter SVG para PNG/ICO
 
-### Opção 1: Online (Rápido)
+### Opção 1: Online (Rápido) ⭐ RECOMENDADO
 
 **Para PNG:**
 1. Acesse: https://svgtopng.com/

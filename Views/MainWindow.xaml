@@ -5,8 +5,9 @@
         xmlns:views="clr-namespace:WpfApp.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="WpfApp - Sistema de Cadastro" Height="650" Width="1000"
-        WindowStartupLocation="CenterScreen"
-        Icon="/Resources/Icons/app-icon.ico">
+        WindowStartupLocation="CenterScreen">
+    <!-- Ícone da janela (descomente após converter app-icon.svg para app-icon.ico) -->
+    <!-- Icon="/Resources/Icons/app-icon.ico" -->
     
     <Window.DataContext>
         <vm:MainViewModel/>
