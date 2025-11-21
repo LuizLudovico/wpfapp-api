@@ -114,8 +114,8 @@ WpfApp/
   - Cliente (readonly - selecionado no modal)
   - Data da Venda (automática)
   - Lista de Itens (Produto, Qtd, Valor Unit., Subtotal)
-  - Valor Total (calculado)
-  - Forma de Pagamento (Dinheiro, PIX, Cartão, Boleto)
+  - Valor Total (calculado automaticamente)
+  - Forma de Pagamento: **Dinheiro**, **PIX**, **Cartão**, **Boleto** (seleção via dropdown)
   - Status (Pendente → Pago → Enviado → Recebido)
   - Observações (texto livre)
 
@@ -205,15 +205,26 @@ WpfApp.exe
 
 ### Primeira Execução
 
-Na primeira execução, a aplicação criará automaticamente a estrutura de dados:
+Na primeira execução, a aplicação **copiará automaticamente** os arquivos JSON de exemplo para a pasta de saída:
 
 ```
 wpfapp-api\
-├── Data/
-│   ├── pessoas.json   (criado automaticamente)
-│   ├── produtos.json  (criado automaticamente)
-│   └── pedidos.json   (criado automaticamente)
+├── Data/                    (arquivos de exemplo - não sobrescritos)
+│   ├── pessoas.json         (3 pessoas de exemplo)
+│   ├── produtos.json        (5 produtos de exemplo)
+│   └── pedidos.json         (3 pedidos de exemplo)
+│
+└── bin\Debug\Data\          (arquivos usados pela aplicação)
+    ├── pessoas.json         (copiado na 1ª compilação)
+    ├── produtos.json        (copiado na 1ª compilação)
+    └── pedidos.json         (copiado na 1ª compilação)
 ```
+
+**ℹ️ Importante:**
+- Os arquivos em `Data/` são **exemplos iniciais**
+- Na compilação, são copiados para `bin\Debug\Data\`
+- A aplicação **lê e grava** em `bin\Debug\Data\`
+- Se você excluir `bin\Debug\`, os exemplos serão recopiados
 
 ### ✅ Verificar Compilação
 
@@ -247,12 +258,15 @@ O projeto segue o padrão **MVVM (Model-View-ViewModel)** para separação de re
 
 ### Models
 Classes de domínio que representam as entidades do sistema:
-- `Pessoa`: Dados de clientes (Id, Nome, CPF, Endereço)
-- `Produto`: Catálogo de produtos (Id, Nome, Codigo, Valor/Preco)
-- `Pedido`: Pedidos e itens (Id, Pessoa, Produtos, ValorTotal, DataVenda, FormaPagamento, Status)
-- `ItemPedido`: Itens do pedido (ProdutoId, Quantidade, PrecoUnitario, Subtotal)
+- `Pessoa`: Dados de clientes (Id, Nome, CPF, Email, Telefone, DataNascimento, Endereço)
+- `Produto`: Catálogo de produtos (Id, Nome, Codigo, Descricao, Preco, QuantidadeEstoque, Categoria, CodigoBarras)
+- `Pedido`: Pedidos e itens (Id, PessoaId, NomeCliente, DataVenda, Itens, ValorTotal, FormaPagamento, Status, Observacoes)
+  - `Itens`: `ObservableCollection<ItemPedido>` (atualização automática na UI)
+  - `ValorTotal`: Calculado automaticamente pela soma dos subtotais
+- `ItemPedido`: Itens do pedido (ProdutoId, NomeProduto, Quantidade, PrecoUnitario, Subtotal)
+  - `Subtotal`: Propriedade calculada (Quantidade × PrecoUnitario)
 - `StatusPedido`: Enum (Pendente, Pago, Enviado, Recebido)
-- `FormaPagamento`: Enum (Dinheiro, Cartao, Boleto)
+- `FormaPagamento`: Enum (Dinheiro, PIX, Cartao, Boleto)
 
 ### Views
 Interfaces XAML para interação com o usuário:
@@ -277,26 +291,91 @@ Camada de persistência e regras de negócio:
 
 ## 💾 Persistência de Dados
 
-Os dados são salvos em arquivos JSON na pasta `Data/`:
-- `pessoas.json`: Cadastro de pessoas
-- `produtos.json`: Catálogo de produtos
-- `pedidos.json`: Histórico de pedidos
+### 📁 Estrutura de Dados
 
-**Exemplo de estrutura JSON (Pessoa):**
+A aplicação trabalha com **dois conjuntos de arquivos JSON**:
+
+**1. Dados de Exemplo** (`Data/` - raiz do projeto):
+- `pessoas.json`: 3 pessoas de exemplo
+- `produtos.json`: 5 produtos de exemplo
+- `pedidos.json`: 3 pedidos de exemplo
+- **Propósito**: Exemplos iniciais copiados na primeira compilação
+
+**2. Dados da Aplicação** (`bin\Debug\Data\`):
+- `pessoas.json`: Cadastro real de pessoas
+- `produtos.json`: Catálogo real de produtos
+- `pedidos.json`: Histórico real de pedidos
+- **Propósito**: Arquivos lidos e gravados pela aplicação em execução
+
+**⚠️ Importante:**
+- A aplicação **sempre usa** os arquivos em `bin\Debug\Data\`
+- Os arquivos de exemplo são copiados **apenas na primeira compilação**
+- Se você excluir `bin\Debug\`, os exemplos serão recopiados
+
+### Exemplos de Estrutura JSON
+
+**Pessoa:**
 ```json
-[
-  {
-    "Id": "123e4567-e89b-12d3-a456-426614174000",
-    "Nome": "João Silva",
-    "CPF": "123.456.789-00",
-    "Email": "joao@email.com",
-    "Telefone": "(11) 98765-4321",
-    "DataNascimento": "1990-01-15T00:00:00",
-    "Endereco": "Rua das Flores, 123",
-    "DataCadastro": "2025-01-01T10:30:00"
-  }
-]
+{
+  "Id": "123e4567-e89b-12d3-a456-426614174000",
+  "Nome": "João Silva",
+  "CPF": "123.456.789-00",
+  "Email": "joao@email.com",
+  "Telefone": "(11) 98765-4321",
+  "DataNascimento": "1990-01-15T00:00:00",
+  "Endereco": "Rua das Flores, 123",
+  "DataCadastro": "2025-01-01T10:30:00"
+}
 ```
+
+**Produto:**
+```json
+{
+  "Id": "650e8400-e29b-41d4-a716-446655440001",
+  "Nome": "Notebook Dell Inspiron 15",
+  "Codigo": "NB-DELL-001",
+  "Descricao": "Notebook i5, 8GB RAM, 256GB SSD",
+  "Preco": 3499.90,
+  "QuantidadeEstoque": 10,
+  "Categoria": "Informática",
+  "CodigoBarras": "7891234567890",
+  "DataCadastro": "2025-01-01T10:00:00"
+}
+```
+
+**Pedido (com Itens):**
+```json
+{
+  "Id": "750e8400-e29b-41d4-a716-446655440001",
+  "PessoaId": "550e8400-e29b-41d4-a716-446655440001",
+  "NomeCliente": "João Silva",
+  "DataVenda": "2025-01-10T10:30:00",
+  "ValorTotal": 4998.90,
+  "FormaPagamento": 1,
+  "Status": 3,
+  "Observacoes": "Pedido concluído e entregue",
+  "Itens": [
+    {
+      "ProdutoId": "650e8400-e29b-41d4-a716-446655440001",
+      "NomeProduto": "Notebook Dell Inspiron 15",
+      "Quantidade": 1,
+      "PrecoUnitario": 3499.90,
+      "Subtotal": 3499.90
+    },
+    {
+      "ProdutoId": "650e8400-e29b-41d4-a716-446655440002",
+      "NomeProduto": "Mouse Logitech MX Master 3",
+      "Quantidade": 1,
+      "PrecoUnitario": 599.00,
+      "Subtotal": 599.00
+    }
+  ]
+}
+```
+
+**ℹ️ Legenda de Enums:**
+- **FormaPagamento**: `0`=Dinheiro, `1`=PIX, `2`=Cartão, `3`=Boleto
+- **Status**: `0`=Pendente, `1`=Pago, `2`=Enviado, `3`=Recebido
 
 ## 🔍 Uso de LINQ
 
@@ -438,9 +517,10 @@ Execute estes 5 testes essenciais:
 
 ### Problema: Dados não são salvos
 **Soluções:**
-1. Verificar permissões de escrita na pasta `Data/`
+1. Verificar permissões de escrita na pasta `bin\Debug\Data\`
 2. Executar como Administrador
 3. Verificar se arquivos JSON não estão corrompidos
+4. **Importante**: Os dados são salvos em `bin\Debug\Data\`, não em `Data\` raiz
 
 ### Problema: Interface não carrega corretamente
 **Soluções:**
@@ -576,7 +656,7 @@ Este projeto é de código aberto e está disponível sob a licença MIT.
 | 🧪 Testes | ✅ Documentado | 34 casos |
 | 📚 Documentação | ✅ Completa | 5 arquivos |
 
-**Última Atualização:** Novembro 2024
+**Última Atualização:** Novembro 2025
 
 ---
 
