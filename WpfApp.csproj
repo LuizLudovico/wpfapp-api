@@ -87,6 +87,7 @@
     <Compile Include="Services\ProdutoService.cs" />
     <Compile Include="Services\ValidationHelper.cs" />
     <Compile Include="ViewModels\DateConverter.cs" />
+    <Compile Include="ViewModels\InverseBooleanConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PedidoEditViewModel.cs" />
     <Compile Include="ViewModels\PedidoViewModel.cs" />
@@ -105,6 +106,9 @@
     </Compile>
     <Compile Include="Views\ProdutoView.xaml.cs">
       <DependentUpon>ProdutoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelecionarPessoaWindow.xaml.cs">
+      <DependentUpon>SelecionarPessoaWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProdutoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelecionarPessoaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

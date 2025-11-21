@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using WpfApp.Models;
 using WpfApp.Services;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -29,8 +30,14 @@ namespace WpfApp.ViewModels
         public Pedido PedidoSelecionado
         {
             get => _pedidoSelecionado;
-            set => SetProperty(ref _pedidoSelecionado, value);
+            set
+            {
+                SetProperty(ref _pedidoSelecionado, value);
+                OnPropertyChanged(nameof(PedidoPodeSerEditado));
+            }
         }
+
+        public bool PedidoPodeSerEditado => PedidoSelecionado != null && PedidoSelecionado.Status == StatusPedido.Pendente;
 
         public ObservableCollection<Pessoa> Clientes
         {
@@ -106,17 +113,38 @@ namespace WpfApp.ViewModels
                 return;
             }
 
+            // Abrir janela de seleção de pessoa
+            var selecaoWindow = new SelecionarPessoaWindow(Clientes);
+            selecaoWindow.ShowDialog();
+
+            if (!selecaoWindow.Confirmado || selecaoWindow.PessoaSelecionada == null)
+                return;
+
+            var clienteSelecionado = selecaoWindow.PessoaSelecionada;
+
+            // Criar pedido temporário
             var novoPedido = new Pedido
             {
-                PessoaId = Clientes.First().Id,
-                NomeCliente = Clientes.First().Nome,
+                PessoaId = clienteSelecionado.Id,
+                NomeCliente = clienteSelecionado.Nome,
                 Status = StatusPedido.Pendente,
-                Observacoes = ""
+                FormaPagamento = FormaPagamento.Dinheiro
             };
 
-            _pedidoService.Adicionar(novoPedido);
-            CarregarDados();
-            PedidoSelecionado = Pedidos.FirstOrDefault(p => p.Id == novoPedido.Id);
+            // Abrir janela de edição
+            var viewModel = new PedidoEditViewModel(novoPedido);
+            var window = new PedidoEditWindow(viewModel);
+            window.ShowDialog();
+
+            // Se o pedido foi finalizado, salvar
+            if (viewModel.PedidoFinalizado)
+            {
+                _pedidoService.Adicionar(novoPedido);
+                CarregarDados();
+                MessageBox.Show($"Pedido finalizado com sucesso!\n\nValor Total: {novoPedido.ValorTotal:C}", 
+                    "Pedido Criado", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            // Se não foi finalizado, o pedido é descartado (não faz nada)
         }
 
         private void Editar()
