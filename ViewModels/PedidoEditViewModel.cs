@@ -56,6 +56,10 @@ namespace WpfApp.ViewModels
         public PedidoEditViewModel(Pedido pedido)
         {
             _produtoService = new ProdutoService();
+            
+            // Inicializa coleções primeiro
+            _produtosDisponiveis = new ObservableCollection<Produto>();
+            
             Pedido = pedido;
             Quantidade = 1;
 
@@ -64,6 +68,7 @@ namespace WpfApp.ViewModels
             FinalizarPedidoCommand = new RelayCommand(param => FinalizarPedido(), param => Pedido.Itens.Any());
             CancelarCommand = new RelayCommand(param => Cancelar());
 
+            // Carrega produtos por último
             CarregarProdutos();
         }
 
@@ -71,6 +76,7 @@ namespace WpfApp.ViewModels
         {
             var produtos = _produtoService.ObterTodos();
             ProdutosDisponiveis = new ObservableCollection<Produto>(produtos);
+            OnPropertyChanged(nameof(ProdutosDisponiveis));
         }
 
         private void AdicionarProduto()
