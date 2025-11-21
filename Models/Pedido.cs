@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace WpfApp.Models
@@ -10,7 +11,7 @@ namespace WpfApp.Models
         public Guid PessoaId { get; set; }
         public string NomeCliente { get; set; }
         public DateTime DataVenda { get; set; }
-        public List<ItemPedido> Itens { get; set; }
+        public ObservableCollection<ItemPedido> Itens { get; set; }
         public decimal ValorTotal { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
         public StatusPedido Status { get; set; }
@@ -20,7 +21,7 @@ namespace WpfApp.Models
         {
             Id = Guid.NewGuid();
             DataVenda = DateTime.Now;
-            Itens = new List<ItemPedido>();
+            Itens = new ObservableCollection<ItemPedido>();
             Status = StatusPedido.Pendente;
             FormaPagamento = FormaPagamento.Dinheiro;
         }
